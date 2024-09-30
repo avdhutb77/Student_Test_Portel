@@ -11,6 +11,9 @@ const student = [{
         { subName: "Science", marks: "" },
         { subName: "English", marks: "" }
     ],
+    Total_Mark:"",
+    Percentage:"",
+
 
 },
 {
@@ -23,10 +26,12 @@ const student = [{
         { subName: "Science", marks: "" },
         { subName: "English", marks: "" }
     ],
+    Total_Mark:"",
+    Percentage:"",
 
 },
 {
-    rollNo: 103,
+    rollNo: 104,
     name: "Avi",
     class: 10,
     gender: "Male",
@@ -35,9 +40,11 @@ const student = [{
         { subName: "Science", marks: "" },
         { subName: "English", marks: "" }
     ],
+    Total_Mark:"",
+    Percentage:"",
 
 },{
-    rollNo: 103,
+    rollNo: 105,
     name: "sham",
     class: 9,
     gender: "Male",
@@ -46,14 +53,14 @@ const student = [{
         { subName: "Science", marks: "" },
         { subName: "English", marks: "" }
     ],
+    Total_Mark:"",
+    Percentage:"",
 
 }
 
-
-
 ];
-displayMenu();
 
+displayMenu();
 function displayMenu() {
     console.log(`**** Display Menu ****\n
         1) Take a Test \n
@@ -131,36 +138,32 @@ function handleViewResult() {
 
    
     console.log(`\nStudent Information:
-+------+--------------------+----------------+--------+
-| Roll |        Name        |      Class     | Gender |
-+------+--------------------+----------------+--------+
-| ${st.rollNo}  |  ${st.name.padEnd(18)}| ${st.class}             | ${st.gender.padEnd(6)} |
-+------+--------------------+----------------+--------+`);
+        +------+--------------------+----------------+--------+------------+-------------+
+        | Roll |        Name        |      Class     | Gender | Percentage | Total Marks |
+        +------+--------------------+----------------+--------+------------+-------------+
+        | ${st.rollNo}  |  ${st.name.padEnd(18)}|     ${st.class}          | ${st.gender.padEnd(6)} |   ${st.Percentage}    |      ${st.Total_Mark}   |
+        +------+--------------------+----------------+--------+------------+-------------+`);
 
     
     console.log(`\nTest Scores:
-+--------------------+-------+
-| Subject            | Marks |
-+--------------------+-------+`);
+        +--------------------+-------+
+        | Subject            | Marks |
+        +--------------------+-------+`);
 
     st.testScores.forEach(score => {
-        console.log(`| ${score.subName.padEnd(18)} | ${score.marks.toString().padStart(5)} |`);
-    });
+        console.log(`       | ${score.subName.padEnd(18)} | ${score.marks.toString().padStart(5)} |`);
+        });
 
-    console.log(`+--------------------+-------+`);
+        console.log(`       +--------------------+-------+`);
 
-    
-     
     }
-
-    
-
-    displayMenu();
+    displayMenu(); 
+ 
 }
 
 
-
-function handleClassResult(){const a=parseInt(readline.question("Enter class: "));
+function handleClassResult(){
+    const a=parseInt(readline.question("Enter class: "));
     let mark=0;
     let count=0;
     let total=0;
