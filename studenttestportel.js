@@ -179,7 +179,6 @@ function handleClassResult(){
         continue;
         }
         mark=mark+total;
-    
     }
     //count=count*3;
     console.log("Average Total_Marks of student class",a," is= ",mark/count)
