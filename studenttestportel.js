@@ -181,10 +181,10 @@ function handleClassResult(){
         mark=mark+total;
     }
     //count=count*3;
-    console.log("Average Total_Marks of student class",a," is= ",mark/count)
+    console.log("Average Total_Marks of student class",a," is= ",Math.floor(mark/count))
     count=count*300;
     const averageScore = (mark / count) * 100 ;
-    console.log("Average percentage of class ",a, " is- ",averageScore.toFixed(2));
+    console.log("Average percentage of class ",a, " is- ",averageScore.toFixed(2),"%");
 
     displayMenu();
 }
