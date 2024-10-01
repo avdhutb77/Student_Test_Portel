@@ -58,7 +58,7 @@ const student = [{
 
 },{
     rollNo: 106,
-    name: "sham",
+    name: "ram",
     class: 9,
     gender: "Male",
     testScores: [
@@ -71,7 +71,7 @@ const student = [{
 
 },{
     rollNo: 107,
-    name: "sham",
+    name: "hari",
     class: 9,
     gender: "Male",
     testScores: [
@@ -94,7 +94,8 @@ function displayMenu() {
         3) View all students Result \n
         4) View Class Result \n
         5) Detail Analysis of Result\n
-        6) Exit`);
+        6) Classwise Top Performer\n
+        7) Exit`);
 
     const userIp = readline.question("Enter your option: ");
 
@@ -109,6 +110,8 @@ function displayMenu() {
     }else if (userIp == 5) {
         handleDetailResult();
     }else if (userIp == 6) {
+        handleTopPerformersByClass();
+    }else if (userIp == 7) {
         console.log("Exiting the program. Goodbye!");
         return; 
     } else {
@@ -138,7 +141,7 @@ function handleGenerateResult() {
     let averageScore;
     for (let st of student){
      totalMarks = st.testScores.reduce((sum, score) => {
-        return sum + (parseFloat(score.marks) || 0); // Ensure marks are treated as numbers
+        return sum + (parseFloat(score.marks) || 0); 
     }, 0); 
     
     
@@ -152,8 +155,7 @@ function handleGenerateResult() {
 
     }
     
-    //console.log(`Total Marks: ${totalMarks}`);
-    //console.log(`Average Score: ${averageScore.toFixed(2)}`); // Format to 2 decimal places
+    
 
     displayMenu(); 
 }
@@ -241,7 +243,7 @@ function handleDetailResult() {
         Classdata[st.class].totalMarks += parseFloat(st.Total_Mark);
         Classdata[st.class].totalPercentage += parseFloat(st.Percentage);
 
-        
+       
         if (parseFloat(st.Percentage) <= 35) {
             Classdata[st.class].failedStudents += 1;
         } else {
@@ -263,7 +265,7 @@ function handleDetailResult() {
         classData.overallGrade = getOverallGrade(classData.AvgPercentage);
     }
 
-    
+   
     function getOverallGrade(avgPercentage) {
         avgPercentage = parseFloat(avgPercentage);
         if (avgPercentage >= 90) {
@@ -296,6 +298,45 @@ function handleDetailResult() {
 
     console.log(`        +---------+------------------+---------+--------------+--------------+---------------+---------+---------------+---------+
     `);
+
+    displayMenu();  
+}
+function handleTopPerformersByClass() {
+    const classData = {};
+
+    
+    for (let st of student) {
+        if (!classData[st.class]) {
+            classData[st.class] = [];
+        }
+        classData[st.class].push(st);
+    }
+
+    
+    for (let classKey in classData) {
+        console.log(`\nClass: ${classKey}`);
+
+        const sortedStudents = classData[classKey].sort((a, b) => parseFloat(b.Percentage) - parseFloat(a.Percentage));
+        const topPerformers = sortedStudents.slice(0, 3);
+
+        if (topPerformers.length > 0) {
+            console.log(`+-----+------------+--------------------+------------+-------------+-------------------------------------+`);
+            console.log(`| Rank|  Roll No   |        Name        | Percentage | Total Marks |            Subject Scores           |`);
+            console.log(`+-----+------------+--------------------+------------+-------------+-------------------------------------+`);
+            
+            topPerformers.forEach((student, index) => {
+                
+                const subjectScores = student.testScores.map(score => `${score.subName}: ${score.marks}`).join(", ");
+                
+                
+                console.log(`|  ${index + 1}  | ${student.rollNo.toString().padEnd(10)} | ${student.name.padEnd(18)} |   ${student.Percentage.padEnd(9)}|  ${student.Total_Mark.padEnd(10)} | ${subjectScores} |`);
+            });
+            
+            console.log(`+-----+------------+--------------------+------------+-------------+-------------------------------------+`);
+        } else {
+            console.log("No students found in this class.");
+        }
+    }
 
     displayMenu();
 }
